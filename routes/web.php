@@ -28,3 +28,6 @@ Route::get('/',[Authcontroller::class,'loadLogin']);
 Route::post('/login',[Authcontroller::class,'userlogin'])->name('userlogin');
 
 Route::get('/logout',[ Authcontroller::class,'logout']);
+
+Route::get('/dashboard',[Authcontroller::class,'loadDashboard']);
+Route::get('/admin/dashboard',[Authcontroller::class,'adminDashboard']);

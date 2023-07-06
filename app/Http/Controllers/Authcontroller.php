@@ -53,7 +53,13 @@ class Authcontroller extends Controller
 
         if(Auth::attempt($userCredential))
         {
-
+            if(auth::user()->is_admin== 1)
+            {
+                return redirect('/admin/dashboard');
+            }
+            else{
+                return redirect('dashboard');
+            }
         }
         else{
             return back()->with('error' ,'Username & Password is incorrect');
