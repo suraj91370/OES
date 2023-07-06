@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
+
+
+
 class Authcontroller extends Controller
 {
     //
@@ -21,7 +27,7 @@ class Authcontroller extends Controller
             'email' => 'string|email|required|max:100|unique:users',
             'password' => 'string|required|confirmed|min:6'
         ]);
-
+  
         $user = new user;
         $user->name = $request->name;
         $user->email = $request->email;
@@ -30,6 +36,29 @@ class Authcontroller extends Controller
 
         return back()->with('success','your Registration has been successful.');
 
+    }
 
+    public function loadLogin()
+    {
+        return view('login');
+    }
+
+    public function userlogin(Request $request)
+    {
+        $request->validate([
+            'email'=> 'string|required|email',
+            'password'=> 'string|required'
+        ]);
+        $userCredential = $request->only('email','password');
+
+        if(Auth::attempt($userCredential))
+        {
+
+        }
+        else{
+            return back()->with('error' ,'Username & Password is incorrect');
+        }
+
+        
     }
 }

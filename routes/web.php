@@ -19,3 +19,12 @@ Route::get('/', function () {
 
 Route::get('/register',[Authcontroller::class,'loadRegister']);
 Route::post('/register',[Authcontroller::class,'studentRegister'])->name('studentRegister');
+
+Route::get('/login',function(){
+    return redirect('/');
+});
+
+Route::get('/',[Authcontroller::class,'loadLogin']);
+Route::post('/login',[Authcontroller::class,'userlogin'])->name('userlogin');
+
+Route::get('/logout',[ Authcontroller::class,'logout']);
