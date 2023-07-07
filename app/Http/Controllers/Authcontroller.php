@@ -40,6 +40,13 @@ class Authcontroller extends Controller
 
     public function loadLogin()
     {
+        if(Auth::user() && Auth::user()->is_admin==1)
+        {
+            return redirect('/admin/dashboard');
+        }
+        else if(Auth::user() && Auth::user()->is_admin==0){
+            return redirect('/dashboard');
+        }
         return view('login');
     }
 
@@ -66,5 +73,21 @@ class Authcontroller extends Controller
         }
 
         
+    }
+
+    public function loadDashboard()
+    {
+        return view('student.dashboard');
+    }
+
+    public function adminDashboard()
+    {
+        return view('admin.dashboard');
+    }
+    public function logout(Request $request)
+    {
+        $request ->session()->flush();
+        Auth::logout();
+        return redirect('/');
     }
 }
